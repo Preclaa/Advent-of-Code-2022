@@ -1,9 +1,10 @@
 import numpy as np
 import json
+import functools
 
 RIGHT_ORDER = 1
-WRONG_ORDER = 0
-NO_ORDER = -1
+WRONG_ORDER = -1
+NO_ORDER = -2
 
 
 def compare(left, right):
@@ -34,5 +35,12 @@ if __name__ == "__main__":
         # Add index to sum if it's in the right order (index starts at 1)
         if order == RIGHT_ORDER:
             part1 += i + 1
-
     print(f"Part 1 answer: {part1}")
+
+    # Include two additional divider packets
+    input.append([[2]])
+    input.append([[6]])
+    # Sort to the correct order
+    sortedInput = sorted(input, key=functools.cmp_to_key(compare))[::-1]
+    part2 = (sortedInput.index([[2]]) + 1) * (sortedInput.index([[6]]) + 1)
+    print(f"Part 1 answer: {part2}")
